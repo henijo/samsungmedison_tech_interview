@@ -13,6 +13,10 @@ namespace VideoRental
     }
 
     public void addRental(Rental arg) { customerRental.Add(arg); }
+
+    public Rental getRental(Movie movie)
+    {
+        return customerRental.FindLast(c => c.getMovie() == movie);}
     public string getName() { return customerName; }
 
     public string statement()
