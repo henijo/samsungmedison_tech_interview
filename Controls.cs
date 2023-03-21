@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics.Contracts;
 using System.Drawing.Printing;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
@@ -84,7 +85,12 @@ namespace VideoRental
         {
             Customer customer = customerList.FindLast(c => c.getName() == customerId);
             Movie movie = movieList.FindLast(c => c.getTitle() == videoTitle);
-            
+
+            if (rentalList.Count == 0)
+            {
+                return;
+            }
+
             if (rentalList.Contains(customer.getRental(movie)))
             {
 
@@ -102,7 +108,16 @@ namespace VideoRental
 
             }
 
-            System.IO.File.WriteAllText(savePath, textValue.ToString(), Encoding.UTF8);
+            if (!File.Exists(savePath))
+            {
+                if (savePath != null)
+                    using (File.Create(savePath))
+                    {
+                        System.IO.File.WriteAllText(savePath, textValue.ToString(), Encoding.UTF8);
+                    }
+            }
+
+            
 
         }
 
