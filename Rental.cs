@@ -16,7 +16,12 @@ namespace VideoRental
     public int getDaysRented() { return nDaysRented; }
     public Movie getMovie() { return rentedMovie; }
 
+    public void setIsRented(bool is_rented)
+    {
+        isRented = is_rented; }
+
     private Movie rentedMovie;
     private int nDaysRented;
+    private bool isRented;
   }
 }

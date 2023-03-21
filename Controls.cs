@@ -36,6 +36,7 @@ namespace VideoRental
             movieList.Add(new Movie("신작 2", Movie.NEW_RELEASE));
             movieList.Add(new Movie("어린이 1", Movie.CHILDRENS));
             movieList.Add(new Movie("어린이 2", Movie.CHILDRENS));
+            movieList.Add(new Movie("로맨스", Movie.CHILDRENS));
         }
 
 
@@ -93,7 +94,11 @@ namespace VideoRental
 
             if (rentalList.Contains(customer.getRental(movie)))
             {
-
+                Rental rentalInfo = rentalList.FindLast(c => c.getMovie() == movie);
+                if (rentalInfo == customer.getRental(movie))
+                {
+                    customer.ReturnRental(videoTitle);
+                }
             }
         }
 

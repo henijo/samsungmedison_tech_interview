@@ -71,6 +71,13 @@ namespace VideoRental
         return result.ToString();
     }
 
+    public void ReturnRental(string videoTitle)
+    {
+        Rental rentalInfo = customerRental.FindLast(c => c.getMovie().getTitle() == videoTitle);
+
+        rentalInfo.setIsRented(true);
+    }
+
     private string customerName;
     private List<Rental> customerRental = new List<Rental>();
   }
