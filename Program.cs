@@ -27,30 +27,14 @@ namespace VideoRental
 
                     case ConsoleKey.D1:
                         InputRental();
-                        Console.WriteLine("Continue? (Y/N)");
-                        string isContinued = Console.ReadLine();
-                        if (isContinued.ToUpper() == "Y")
-                        {
-                            InputRental();
-                        }
-                        else
-                        {
-                            SelectMenu();
-                        }
+                        
+                        
                         break;
 
                     case ConsoleKey.D2:
                         InputReturn();
                         Console.WriteLine("Continue? (Y/N)");
-                        isContinued = Console.ReadLine();
-                        if (isContinued.ToUpper() == "Y")
-                        {
-                            InputReturn();
-                        }
-                        else
-                        {
-                            SelectMenu();
-                        }
+                        
                         break;
 
                     case ConsoleKey.D3:
@@ -125,12 +109,23 @@ namespace VideoRental
             string period = Console.ReadLine();
 
             int i = 0;
-            bool canConvert = int.TryParse(period, out i);
+            string isContinued = string.Empty;
             
+            bool canConvert = int.TryParse(period, out i);
+
             if (canConvert == true)
             {
                 Controls.Instance.Input_Rental(id, title, int.Parse(period));
                 Console.WriteLine("Continue? (Y/N)");
+                isContinued = Console.ReadLine();
+                if (isContinued.ToUpper() == "Y")
+                {
+                    InputRental();
+                }
+                else
+                {
+                    SelectMenu();
+                }
             }
             else
             {
@@ -139,6 +134,15 @@ namespace VideoRental
                 period = Console.ReadLine();
                 Controls.Instance.Input_Rental(id, title, int.Parse(period));
                 Console.WriteLine("Continue? (Y/N)");
+                isContinued = Console.ReadLine();
+                if (isContinued.ToUpper() == "Y")
+                {
+                    InputRental();
+                }
+                else
+                {
+                    SelectMenu();
+                }
             }
         }
 
@@ -156,7 +160,18 @@ namespace VideoRental
             string title = Console.ReadLine();
 
             Controls.Instance.Input_Return(id, title);
-            
+
+            Console.WriteLine("Continue? (Y/N)");
+            string isContinued = Console.ReadLine();
+            if (isContinued.ToUpper() == "Y")
+            {
+                InputReturn();
+            }
+            else
+            {
+                SelectMenu();
+            }
+
         }
 
 

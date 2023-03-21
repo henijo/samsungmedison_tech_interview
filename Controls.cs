@@ -75,7 +75,7 @@ namespace VideoRental
             Customer customer = new Customer(customerId);
             Movie selectedMovie = movieList.Find(x => x.getTitle() == videoTitle);
             Rental rental = new Rental(selectedMovie, period);
-            customer.addRental(rental);
+            customer.addRental(rental); 
             
             customerList.Add(customer);
             rentalList.Add(rental);
@@ -99,7 +99,8 @@ namespace VideoRental
 
         public void SaveRecipet()
         {
-            string savePath = @"save/recipt.txt";
+            string savePath = @"../save";
+            string fullPath = @"../save/recipt.txt";
             StringBuilder textValue = new StringBuilder();
 
             for (int i = 0; i < customerList.Count; i++)
@@ -108,13 +109,23 @@ namespace VideoRental
 
             }
 
-            if (!File.Exists(savePath))
+            if (Directory.Exists(savePath) == false)
             {
-                if (savePath != null)
-                    using (File.Create(savePath))
-                    {
-                        System.IO.File.WriteAllText(savePath, textValue.ToString(), Encoding.UTF8);
-                    }
+                Directory.CreateDirectory(savePath);
+            }
+
+            if (!File.Exists(fullPath))
+            {
+                using (File.Create(fullPath))
+                {
+                    System.IO.File.WriteAllText(fullPath, textValue.ToString(), Encoding.UTF8);
+                    Console.WriteLine("Save Complete! (file path : {0})", Path.GetFullPath(fullPath));
+                }
+            }
+            else
+            {
+                System.IO.File.WriteAllText(fullPath, textValue.ToString(), Encoding.UTF8);
+                Console.WriteLine("Save Complete! (file path : {0})", Path.GetFullPath(fullPath));
             }
 
             
