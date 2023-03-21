@@ -27,7 +27,7 @@ namespace VideoRental
 
         result.AppendLine("Rental Record for" + getName());
 
-
+        
         IEnumerator<Rental> enumerator = customerRental.GetEnumerator();
 
         for (; enumerator.MoveNext();)
@@ -51,6 +51,11 @@ namespace VideoRental
                     if (each.getDaysRented() > 3)
                         thisAmount += (each.getDaysRented() - 3) * 1.5;
                     break;
+                case Movie.ROMANCE:
+                    thisAmount += 3.0;
+                    if(each.getDaysRented() > 2)
+                        thisAmount += (each.getDaysRented() - 2) * 1.5;
+                        break;
             }
 
             // Add frequent renter points
