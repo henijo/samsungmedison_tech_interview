@@ -85,7 +85,7 @@ namespace VideoRental
             Customer customer = customerList.FindLast(c => c.getName() == customerId);
             Movie movie = movieList.FindLast(c => c.getTitle() == videoTitle);
             
-            if (rentalList.Contains(customer.getRental(movie)) == true)
+            if (rentalList.Contains(customer.getRental(movie)))
             {
 
             }

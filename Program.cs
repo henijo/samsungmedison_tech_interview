@@ -27,36 +27,56 @@ namespace VideoRental
 
                     case ConsoleKey.D1:
                         InputRental();
+                        Console.WriteLine("Continue? (Y/N)");
+                        string isContinued = Console.ReadLine();
+                        if (isContinued.ToUpper() == "Y")
+                        {
+                            InputRental();
+                        }
+                        else
+                        {
+                            SelectMenu();
+                        }
                         break;
 
-                    case ConsoleKey.NumPad2:
+                    case ConsoleKey.D2:
                         InputReturn();
+                        Console.WriteLine("Continue? (Y/N)");
+                        isContinued = Console.ReadLine();
+                        if (isContinued.ToUpper() == "Y")
+                        {
+                            InputReturn();
+                        }
+                        else
+                        {
+                            SelectMenu();
+                        }
                         break;
 
-                    case ConsoleKey.NumPad3:
+                    case ConsoleKey.D3:
                         Controls.Instance.SaveRecipet();
                         Console.WriteLine("Save");
                         break;
 
-                    case ConsoleKey.NumPad4:
+                    case ConsoleKey.D4:
                         Console.WriteLine("Input customer ID :");
                         string customerId = Console.ReadLine();
                         Controls.Instance.PrintRecipt(customerId);
                         break;
 
-                    case ConsoleKey.NumPad5:
-                        Console.WriteLine("5");
-                        break;
+                    case ConsoleKey.D5:
+                        Environment.Exit(0);
+                        break;            
                         
 
                     default:
-                        Console.WriteLine("다시 선택하여 주십시오.");
+                        Console.WriteLine("아무키나 누르세요.");
                         SelectMenu();
                         break;
 
                 }
 
-                Console.WriteLine("아무키나 누르세요.");
+                
                 Console.ReadKey();
             }
             
@@ -110,6 +130,7 @@ namespace VideoRental
             if (canConvert == true)
             {
                 Controls.Instance.Input_Rental(id, title, int.Parse(period));
+                Console.WriteLine("Continue? (Y/N)");
             }
             else
             {
@@ -117,6 +138,7 @@ namespace VideoRental
                 Console.WriteLine("Input Period : ");
                 period = Console.ReadLine();
                 Controls.Instance.Input_Rental(id, title, int.Parse(period));
+                Console.WriteLine("Continue? (Y/N)");
             }
         }
 
@@ -134,6 +156,7 @@ namespace VideoRental
             string title = Console.ReadLine();
 
             Controls.Instance.Input_Return(id, title);
+            
         }
 
 
