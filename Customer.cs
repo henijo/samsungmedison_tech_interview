@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Reflection.Emit;
 using System.Text;
 
 namespace VideoRental
@@ -27,7 +29,8 @@ namespace VideoRental
 
         result.AppendLine("Rental Record for" + getName());
 
-        
+        List<string> reciptList = new List<string>();
+
         IEnumerator<Rental> enumerator = customerRental.GetEnumerator();
 
         for (; enumerator.MoveNext();)
@@ -41,20 +44,24 @@ namespace VideoRental
                     thisAmount += 2.0;
                     if (each.getDaysRented() > 2)
                         thisAmount += (each.getDaysRented() - 2) * 1.5;
+                    reciptList.Add(string.Format("{0}  {1}    {2}    {3}", "REGULAR", each.getMovie().getTitle(), each.getDaysRented(), thisAmount));
                     break;
                 case Movie.NEW_RELEASE:
                     thisAmount += each.getDaysRented() * 3;
-                    break;
+                    reciptList.Add(string.Format("{0}  {1}    {2}    {3}", "NEW_RELEASE", each.getMovie().getTitle(), each.getDaysRented(), thisAmount));
+                        break;
 
                 case Movie.CHILDRENS:
                     thisAmount += 1.5;
                     if (each.getDaysRented() > 3)
                         thisAmount += (each.getDaysRented() - 3) * 1.5;
-                    break;
+                    reciptList.Add(string.Format("{0}  {1}    {2}    {3}", "CHILDRENS", each.getMovie().getTitle(), each.getDaysRented(), thisAmount));
+                        break;
                 case Movie.ROMANCE:
                     thisAmount += 3.0;
                     if(each.getDaysRented() > 2)
                         thisAmount += (each.getDaysRented() - 2) * 1.5;
+                    reciptList.Add(string.Format("{0}  {1}    {2}    {3}", "ROMANCE", each.getMovie().getTitle(), each.getDaysRented(), thisAmount));
                         break;
             }
 
@@ -72,6 +79,13 @@ namespace VideoRental
 
         result.AppendLine("Amount owed is " + totalAmount);
         result.AppendLine("You earned " + frequentRenterPoints + " frequent renter points");
+
+        result.AppendLine("=====================================");
+        result.AppendLine("장르   제목    대여기간     가격");
+        foreach (string recipt in reciptList)
+        {
+            result.AppendLine(recipt);
+        }
 
         return result.ToString();
     }
